@@ -10,8 +10,9 @@ setDefaultTimeout(60 * 1000);
 
 Before(async function () {
     console.log('Execution Started');
+    const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
     browser = await chromium.launch({
-        headless: false
+        headless: isCI ? true : false
     });
     page = await browser.newPage();
     page.setDefaultNavigationTimeout(120000);
@@ -24,5 +25,7 @@ Before(async function () {
 
 After(async function () {
     console.log('Execution Completed');
-    await browser.close();
+    if (browser) {
+        await browser.close();
+    }
 });

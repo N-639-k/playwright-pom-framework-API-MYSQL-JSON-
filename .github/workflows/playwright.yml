@@ -1,8 +1,13 @@
 name: Playwright Cucumber Framework
 
+name: Playwright Cucumber Framework
+
 on:
 
   push:
+    branches:
+      - main
+
     branches:
       - main
 
@@ -10,14 +15,16 @@ on:
     branches:
       - main
 
+    branches:
+      - main
+
 jobs:
 
   test:
-
     runs-on: ubuntu-latest
 
-    steps:
 
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
