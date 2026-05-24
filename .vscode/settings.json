@@ -1,0 +1,14 @@
+{
+  "cucumberautocomplete.steps": [
+    "stepDefinitions/**/*.ts"
+  ],
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "editor.quickSuggestions": {
+    "comments": false,
+    "strings": true,
+    "other": true
+  },
+  "[gherkin]": {
+    "editor.defaultFormatter": "alexkrechik.cucumberautocomplete"
+  }
+}

@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        options: >
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Create MySQL test database
+        run: |
+          node -e "const mysql=require('mysql2/promise');(async()=>{const c=await mysql.createConnection({host:'127.0.0.1',port:3306,user:'root',password:'root'});await c.query('CREATE DATABASE IF NOT EXISTS qa_automation');await c.end();})();"
+
+      - name: Run TypeScript validation
+        run: npx tsc --noEmit
+
+      - name: Run Cucumber tests
+        run: |
+          export MYSQL_HOST=127.0.0.1
+          export MYSQL_PORT=3306
+          export MYSQL_USER=root
+          export MYSQL_PASSWORD=root
+          export MYSQL_DATABASE=qa_automation
+          npm test

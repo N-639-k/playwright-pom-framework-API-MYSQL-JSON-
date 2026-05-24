@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+
+    "target": "ES2020",
+
+    "module": "Node16",
+
+    "moduleResolution": "node16",
+
+    "types": ["node"],
+
+    "resolveJsonModule": true,
+
+    "esModuleInterop": true,
+
+    "strict": false,
+
+    "skipLibCheck": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    "outDir": "./dist"
+  },
+
+  "include": [
+    "./featureFiles/**/*.ts",
+    "./stepDefinitions/**/*.ts",
+    "./methods/**/*.ts",
+    "./utils/**/*.ts",
+    "./hooks/**/*.ts",
+    "./playwright.config.ts"
+  ]
+}
