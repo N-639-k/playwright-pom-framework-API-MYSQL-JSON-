@@ -42,7 +42,7 @@ test-results/      # Playwright output folder
 
 ## Prerequisites
 
-- Node.js 18 or newer
+- Node.js 20 or newer (required for @cucumber/cucumber@12.9.0)
 - npm
 - MySQL server
 - Postman (optional, for API exploration)
